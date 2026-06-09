@@ -20,12 +20,12 @@ Each monitor gets its own **countdown coroutine** that sleeps for its timeout:
 
 ```mermaid
 stateDiagram-v2
-    [*] --> active: POST /monitors
-    active --> active: heartbeat (timer reset)
-    active --> down: countdown finishes (alert fires)
+    [*] --> active: register
+    active --> active: heartbeat
+    active --> down: timeout
     active --> paused: pause
-    paused --> active: heartbeat (resume)
-    down --> active: heartbeat (device recovered)
+    paused --> active: heartbeat
+    down --> active: heartbeat
 ```
 
 This per-monitor-task design was chosen for clarity.
